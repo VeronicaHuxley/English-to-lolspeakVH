@@ -1,0 +1,53 @@
+"""
+Veronica Huxley
+
+"""
+
+# Step 1
+# Import the english.txt file
+import json
+
+english_file = open('english.txt', 'r').readlines() #list
+
+# Step 2
+# Import the glossary (the tranzlashun.json file)
+# This dataset originally comes from the GitHub repository
+# at https://github.com/irdumbs/Dumb-Cogs and is covered by an MIT license
+
+lol_glossary = open('tranzlashun.json', 'r') #type: _io.TextIOWrapper
+glossary = json.load(lol_glossary) #type: dict
+
+# Step 3
+# Translate the English text into Lolspeak
+
+lolcat_tranzlation = []
+
+for rows in english_file:
+    row_split = rows.split(' ')
+    for eng_words in row_split:
+        lolcat_tranzlation.append(eng_words.lower())
+        
+#print(lolcat_tranzlation)
+
+eng_to_lolcat = []
+
+for words in lolcat_tranzlation:
+    if words in glossary:
+        eng_to_lolcat.append(glossary[words])
+    else:
+        eng_to_lolcat.append(words)
+
+eng_to_lolcat = " ".join(eng_to_lolcat)    
+        
+#print(eng_to_lolcat) 
+
+# Step 4
+# Save the translated text as the "lolcat.txt" file
+
+def new_eng_to_lolcat(cat_file):
+    
+    cat_file_save = open(cat_file, 'w')
+    cat_file_save.writelines(eng_to_lolcat)
+    cat_file_save.close()
+    
+new_eng_to_lolcat('lolcat.txt')
